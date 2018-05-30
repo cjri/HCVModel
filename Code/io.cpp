@@ -86,28 +86,28 @@ void GetOptions (run_params& p, int argc, const char **argv) {
 
 void GetAllDat (vector< vector<dat> >& all_dat) {
 	vector<dat> d1;
-	GetData("../Data/Set3_CD81_final.dat",1,d1);
+	GetData("../FinalData/Set3_CD81_final.dat",1,d1);
 	all_dat.push_back(d1);
 	d1.clear();
-	GetData("../Data/Set3_SRB1_final.dat",0,d1);
+	GetData("../FinalData/Set3_SRB1_final.dat",0,d1);
 	all_dat.push_back(d1);
 	d1.clear();
-	GetData("../Data/Set5_CD81_final.dat",1,d1);
+	GetData("../FinalData/Set5_CD81_final.dat",1,d1);
 	all_dat.push_back(d1);
 	d1.clear();
-	GetData("../Data/Set5_SRB1_final.dat",0,d1);
+	GetData("../FinalData/Set5_SRB1_final.dat",0,d1);
 	all_dat.push_back(d1);
 	d1.clear();
-	GetData("../Data/Set6_CD81_final.dat",1,d1);
+	GetData("../FinalData/Set6_CD81_final.dat",1,d1);
 	all_dat.push_back(d1);
 	d1.clear();
-	GetData("../Data/Set6_SRB1_final.dat",0,d1);
+	GetData("../FinalData/Set6_SRB1_final.dat",0,d1);
 	all_dat.push_back(d1);
 	d1.clear();
-	GetData("../Data/Set7_CD81_final.dat",1,d1);
+	GetData("../FinalData/Set7_CD81_final.dat",1,d1);
 	all_dat.push_back(d1);
 	d1.clear();
-	GetData("../Data/Set7_SRB1_final.dat",0,d1);
+	GetData("../FinalData/Set7_SRB1_final.dat",0,d1);
 	all_dat.push_back(d1);
 	d1.clear();
 }
