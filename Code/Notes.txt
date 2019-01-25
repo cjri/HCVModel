@@ -1,0 +1,19 @@
+Model definitions:
+Model 0 : Null model
+Model 6 : Default model
+Model 21 : Default model with CD81 unbinding
+Model 22 : Default model with SR-B1 unbinding
+
+Code options:
+
+--dim d : Dimension of model - number of CD81 receptors required for entry
+--model m : Mathematical model - definitions above
+--c1 c : Rate of binding CD81 in SR-B1 independent manner
+--c2 c : Rate of binding CD81 in an SR-B1-mediated manner
+--c3 c : Rate of unbinding CD81
+--s1 s : Rate of binding SR-B1
+--s2 s : Rate of unbinding SR-B1
+--Ne n : Number of E2 proteins
+--nfix f : Option to not change Ne in the course of optimisation
+--usegamma u : Include likelihood for CHO data
+
