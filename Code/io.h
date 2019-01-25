@@ -12,4 +12,4 @@ void ConstructOutputVectors(vector< vector<dat> >& all_dat, vector<double>& cd81
 void ModifyOutputVectors (int i, int j, vector< vector<dat> >& all_dat, double p, vector<double>& cd81_indices, vector<double>& srb_indices, vector<double>& cd81_x, vector<double>& srb_x);
 void OutputData (vector< vector<dat> >& all_dat, vector<double>& cd81_x, vector<double>& srb_x);
 void OutputFreqs (vector<double>& cd81_indices, vector<double>& srb_indices, vector<double>& cd81_x, vector<double>& srb_x);
-void PrintParameters (int model, double lL, double s0, double p1, double p2, double de, ofstream& rec_file);
+void PrintParameters (double lL, vector<double> params, ofstream& rec_file);

@@ -6,21 +6,26 @@ void GetOptions (run_params& p, int argc, const char **argv) {
 	string p_switch;
 	p.dim=1;
 	p.model=1;
-	p.rk=0;
-	p.over=0;
-	p.max_its=100000;
-	p.e0=0.01;
-	p.s0=0.01;
-	p.p1=0.01;
-	p.p2=0.02;
+	p.max_its=1000000;
+	p.N=100;
+	p.r=0.01;
+	p.c1=0.01;
+	p.c2=0.02;
+    p.c3=0.01;
 	p.de=0.01;
+	p.s1=0.01;
+    p.s2=0.01;
+    p.Nc=100;
+    p.Ns=100;
+    p.Ne=100;
 	p.gp1=0;
 	p.gp2=0;
-	p.lambda=0;
+    p.usegamma=0;
     p.precision=0;
     p.smallchange=0;
-	p.show_all=0;
+    p.threshold=1e-5;
 	p.grid=0;
+    p.nfix=0;
 	int x=1;
 	while (x < argc && (argv[x][0]=='-')) {
 		p_switch=argv[x];
@@ -30,39 +35,57 @@ void GetOptions (run_params& p, int argc, const char **argv) {
 		} else if (p_switch.compare("--model")==0) {
 			x++;
 			p.model=atoi(argv[x]);
-		} else if (p_switch.compare("--rk")==0) {
-			x++;
-			p.rk=atoi(argv[x]);
-		} else if (p_switch.compare("--over")==0) {
-			x++;
-			p.over=atoi(argv[x]);
 		} else if (p_switch.compare("--its")==0) {
 			x++;
 			p.max_its=atoi(argv[x]);
-		} else if (p_switch.compare("--e0")==0) {
+		} else if (p_switch.compare("--s1")==0) {
 			x++;
-			p.e0=atof(argv[x]);
-		} else if (p_switch.compare("--s")==0) {
+			p.s1=atof(argv[x]);
+        } else if (p_switch.compare("--s2")==0) {
+            x++;
+            p.s2=atof(argv[x]);
+		} else if (p_switch.compare("--r")==0) {
 			x++;
-			p.s0=atof(argv[x]);
+			p.r=atof(argv[x]);
+		} else if (p_switch.compare("--N")==0) {
+			x++;
+			p.N=atof(argv[x]);
+        } else if (p_switch.compare("--Nc")==0) {
+            x++;
+            p.Nc=atof(argv[x]);
+        } else if (p_switch.compare("--Ns")==0) {
+            x++;
+            p.Ns=atof(argv[x]);
+        } else if (p_switch.compare("--Ne")==0) {
+            x++;
+            p.Ne=atoi(argv[x]);
 		} else if (p_switch.compare("--c1")==0) {
 			x++;
-			p.p1=atof(argv[x]);
+			p.c1=atof(argv[x]);
 		} else if (p_switch.compare("--c2")==0) {
 			x++;
-			p.p2=atof(argv[x]);
+			p.c2=atof(argv[x]);
+        } else if (p_switch.compare("--c3")==0) {
+            x++;
+            p.c3=atof(argv[x]);
 		} else if (p_switch.compare("--de")==0) {
 			x++;
 			p.de=atof(argv[x]);
         } else if (p_switch.compare("--precision")==0) {
             x++;
             p.precision=atoi(argv[x]);
-        } else if (p_switch.compare("--small")==0) {
+        } else if (p_switch.compare("--threshold")==0) {
+            x++;
+            p.threshold=atof(argv[x]);
+        } else if (p_switch.compare("--nfix")==0) {
+            x++;
+            p.nfix=atoi(argv[x]);
+        } else if (p_switch.compare("--usegamma")==0) {
+            x++;
+            p.usegamma=atoi(argv[x]);
+      } else if (p_switch.compare("--small")==0) {
             x++;
             p.smallchange=atoi(argv[x]);
-		} else if (p_switch.compare("--show")==0) {
-			x++;
-			p.show_all=atoi(argv[x]);
 		} else if (p_switch.compare("--makegrid")==0) {
 			x++;
 			p.grid=atoi(argv[x]);
@@ -72,9 +95,6 @@ void GetOptions (run_params& p, int argc, const char **argv) {
 		} else if (p_switch.compare("--gp2")==0) {
 			x++;
 			p.gp2=atof(argv[x]);
-		} else if (p_switch.compare("--lambda")==0) {
-			x++;
-			p.lambda=atof(argv[x]);
         } else {
 			cout << "Incorrect usage\n ";
 			exit(1);
@@ -86,28 +106,28 @@ void GetOptions (run_params& p, int argc, const char **argv) {
 
 void GetAllDat (vector< vector<dat> >& all_dat) {
 	vector<dat> d1;
-	GetData("../FinalData/Set3_CD81_final.dat",1,d1);
+	GetData("../Data/Set3_CD81_final.dat",1,d1);
 	all_dat.push_back(d1);
 	d1.clear();
-	GetData("../FinalData/Set3_SRB1_final.dat",0,d1);
+	GetData("../Data/Set3_SRB1_final.dat",0,d1);
 	all_dat.push_back(d1);
 	d1.clear();
-	GetData("../FinalData/Set5_CD81_final.dat",1,d1);
+	GetData("../Data/Set5_CD81_final.dat",1,d1);
 	all_dat.push_back(d1);
 	d1.clear();
-	GetData("../FinalData/Set5_SRB1_final.dat",0,d1);
+	GetData("../Data/Set5_SRB1_final.dat",0,d1);
 	all_dat.push_back(d1);
 	d1.clear();
-	GetData("../FinalData/Set6_CD81_final.dat",1,d1);
+	GetData("../Data/Set6_CD81_final.dat",1,d1);
 	all_dat.push_back(d1);
 	d1.clear();
-	GetData("../FinalData/Set6_SRB1_final.dat",0,d1);
+	GetData("../Data/Set6_SRB1_final.dat",0,d1);
 	all_dat.push_back(d1);
 	d1.clear();
-	GetData("../FinalData/Set7_CD81_final.dat",1,d1);
+	GetData("../Data/Set7_CD81_final.dat",1,d1);
 	all_dat.push_back(d1);
 	d1.clear();
-	GetData("../FinalData/Set7_SRB1_final.dat",0,d1);
+	GetData("../Data/Set7_SRB1_final.dat",0,d1);
 	all_dat.push_back(d1);
 	d1.clear();
 }
@@ -225,13 +245,13 @@ void OutputFreqs (vector<double>& cd81_indices, vector<double>& srb_indices, vec
 	out_file.close();
 }
 
-void PrintParameters (int model, double lL, double s0, double p1, double p2, double de, ofstream& rec_file) {
-	if (model==1) {
-		cout << "Better lL = " << lL << " " << s0 << " " << p1 << " " << p2 << "\n";
-		rec_file << "Better lL = " << lL << " " << s0 << " " << p1 << " " << p2 << "\n";
-	}
-	if (model==2) {
-		cout << "Better lL = " << lL << " " << s0 << " " << p1 << " " << p2 << " " << de << "\n";
-		rec_file << "Better lL = " << lL << " " << s0 << " " << p1 << " " << p2 << " " << de << "\n";
-	}
+void PrintParameters (double lL, vector<double> params, ofstream& rec_file) {
+    cout << "Better lL = " << lL << " ";
+    rec_file << "Better lL = " << lL << " ";
+    for (int i=1;i<params.size();i++) {
+        cout << params[i] << " ";
+        rec_file << params[i] << " ";
+    }
+    cout << "\n";
+    rec_file << "\n";
 }

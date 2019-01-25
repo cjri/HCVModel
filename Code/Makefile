@@ -1,6 +1,6 @@
 CC	      = g++
 CC_FLAGS        = -g3 -O3 -Wall -I  /usr/local/include/gsl/
-LD_FLAGS	= -L/usr/local/lib -lgsl -lgslcblas -lcblas -lm
+LD_FLAGS	= -L/usr/local/lib -lgsl -lgslcblas -lm
 BAS		= basicmodel.o models.o io.o utilities.o
 DC		= dist_check.o io_check.o utilities.o models_check.o
 GD		= makegrid.o models.o io.o utilities.o
@@ -16,7 +16,3 @@ io.o: io.cpp
 utilities.o: utilities.cpp
 	$(CC) $(CC_FLAGS) -c utilities.cpp
 
-grid: $(GD)
-	$(CC) $(CC_FLAGS) $(GD) -o run_grid $(LD_FLAGS)
-makegrid.o: makegrid.cpp
-	$(CC) $(CC_FLAGS) -c makegrid.cpp

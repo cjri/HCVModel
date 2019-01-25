@@ -21,13 +21,25 @@ struct run_params {
 	double p1;
 	double p2;
 	double de;
+	double r;
+	double N;
+	double c1; //SRB1-independent binding of CD81
+	double c2; //SRB1-dependent binding of CD81
+    double c3; //Unbinding of CD81
+	double s1; //Binding of SRB1
+    double s2; //Unbinding of SRB1
+    double Nc; //Number of CD81 proteins available
+    double Ns; //Number of SR-B1 proteins available
+    int Ne; //Number of E2 proteins involved in binding
 	double lambda;
+    double usegamma;
     int precision; //Makes the Runge-Kutta algorithm more accurate, and more consistent.  Use for final calculations
-    int smallchange;
-	int show_all;
+    int smallchange; //Start with small ds in optimisation
+    double threshold; //Termination criterion for ds
 	int grid;
 	double gp1; //Used to specify particular grid points
 	double gp2; //Used to specify particular grid points
+    int nfix; //Flag to fix the parameter Ne in the optimisation
 };
 
 struct dat {
